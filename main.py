@@ -71,3 +71,27 @@ async def create_notary_session(
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+        
+from fastapi.security import OAuth2PasswordRequestForm
+from auth import create_access_token, verify_password, get_current_user_email
+
+@app.post("/api/v1/auth/token")
+def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
+    """Handles core authentication check and delivers the JWT string back."""
+    # 1. Fetch user from PostgreSQL (Pseudocode match block)
+    # user = db.query(User).filter(User.email == form_data.username).first()
+    # if not user or not verify_password(form_data.password, user.hashed_password):
+    #     raise HTTPException(status_code=400, detail="Incorrect email or password")
+    
+    # 2. Issue Token
+    access_token = create_access_token(data={"sub": form_data.username})
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
+@app.get("/api/v1/notary/secure-dashboard-data")
+def get_secure_dashboard(current_user_email: str = Depends(get_current_user_email)):
+    """This route is completely protected and requires a valid Authorization Bearer token header."""
+    return {
+        "message": f"Welcome to your dashboard, {current_user_email}!",
+        "system_status": "All systems operational"
+    }
