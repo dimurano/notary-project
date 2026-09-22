@@ -1,6 +1,6 @@
 import os
 import requests
-from fastapi import FastAPI, UploadFile, File, HTTPException, Form
+from fastapi import FastAPI, Depends, UploadFile, File, HTTPException, Form, status
 from pydantic import BaseModel, EmailStr
 
 app = FastAPI(title="Notary Core Service")
