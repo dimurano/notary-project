@@ -2,6 +2,8 @@ import os
 import requests
 from fastapi import FastAPI, Depends, UploadFile, File, HTTPException, Form, status
 from pydantic import BaseModel, EmailStr
+from fastapi.security import OAuth2PasswordRequestForm
+from auth import create_access_token, verify_password, get_current_user_email
 
 app = FastAPI(title="Notary Core Service")
 
@@ -72,9 +74,6 @@ async def create_notary_session(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
         
-from fastapi.security import OAuth2PasswordRequestForm
-from auth import create_access_token, verify_password, get_current_user_email
-
 @app.post("/api/v1/auth/token")
 def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
     """Handles core authentication check and delivers the JWT string back."""
