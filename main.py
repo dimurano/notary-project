@@ -7,8 +7,9 @@ from auth import create_access_token, verify_password, get_current_user_email
 
 from fastapi import FastAPI
 app = FastAPI()
-@app.get("/")
-def read_root():
+
+@app.get("/") 
+async def read_root(): 
     return {"status": "healthy", "message": "Welcome to Notarial Solutions API"}
 
 app = FastAPI(title="Notary Core Service")
