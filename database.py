@@ -7,7 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 DB_USER = os.getenv("DB_USER")
 DB_PASS = os.getenv("DB_PASS")
 DB_NAME = os.getenv("DB_NAME")
-INSTANCE_CONNECTION_NAME = os.getenv("INSTANCE_CONNECTION_NAME") # project:region:instance
+INSTANCE_CONNECTION_NAME = os.getenv(notary-project-509006:us-south1:notary-instance1) # project:region:instance
 
 # 2. Construct the production connection string if running on GCP Cloud Run
 if INSTANCE_CONNECTION_NAME:
