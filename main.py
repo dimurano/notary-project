@@ -8,15 +8,8 @@ from auth import create_access_token, verify_password, get_current_user_email
 from fastapi import FastAPI
 app = FastAPI()
 
-@app.get("/")
-async def read_frontend-UI.js():
-    # Use a relative path package-safe lookup
-    index_path = os.path.join(BASE_DIR, "project-notary/frontend UI.js")
-    return FileResponse(frontend UI.js)
-
 @app.get("/") 
-async def read_root(): 
-    return FileResponse(frontend UI.js) 
+async def read_root():
 
 app = FastAPI(title="Notary Core Service")
 
