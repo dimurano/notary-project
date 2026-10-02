@@ -12,6 +12,11 @@ class SessionStatus(str, enum.Enum):
     COMPLETED = "COMPLETED" # Notary seal applied + saved to Cloud Storage
     EXPIRED = "EXPIRED"
 
+class AppConfig(Base):
+    __tablename__ = "app_configurations"
+    key = Column(String, primary_key=True, index=True) # e.g., "homepage_alert_notice"
+    value = Column(Text, nullable=True)
+    
 class User(Base):
     __tablename__ = "users"
 
@@ -29,6 +34,7 @@ class NotarySession(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     client_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    is_admin = Column(Boolean, default=False, nullable=False)
     
     # Adobe Tracking References
     adobe_agreement_id = Column(String, unique=True, index=True, nullable=True)
