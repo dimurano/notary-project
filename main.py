@@ -6,12 +6,22 @@ from fastapi.security import OAuth2PasswordRequestForm
 from auth import create_access_token, verify_password, get_current_user_email
 
 from fastapi import FastAPI
-app = FastAPI()
-
-@app.get("/") 
-async def read_root():
+from fastapi.middleware.cors import CORSMiddleware  # <-- 1. Add this import
 
 app = FastAPI(title="Notary Core Service")
+
+# 2. Add this block directly below your app initialization
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",      # For local React development testing
+        "http://localhost:5173",      # For local Vite development testing
+        "https://https://notarial-solutions-web.web.app/",  # <-- Replace with your actual production frontend URL later!
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],              # Allows GET, POST, OPTIONS, etc.
+    allow_headers=["*"],              # Allows Authorization and Content-Type headers
+)
 
 # Configuration loaded via GCP Environment Variables
 ADOBE_ACCESS_TOKEN = os.getenv("ADOBE_ACCESS_TOKEN")
